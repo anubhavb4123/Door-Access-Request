@@ -79,7 +79,8 @@ async function sendTelegramMessage(name, reason, timestamp) {
     `🚪 *Door Access Request*\n\n` +
     `*Name:* ${escapeMarkdown(displayName)}\n\n` +
     `*Reason:* ${escapeMarkdown(displayReason)}\n\n` +
-    `*Time:* ${escapeMarkdown(formattedTime)}`;
+    `*Time:* ${escapeMarkdown(formattedTime)}\n\n` +
+    `*Chat ID:* ${escapeMarkdown(TELEGRAM_CHAT_ID)}`;
 
   const url = `https://api.telegram.org/bot${TELEGRAM_BOT_TOKEN}/sendMessage`;
 
