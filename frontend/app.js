@@ -138,6 +138,19 @@ async function submitRequest() {
   }
 }
 
+// --- Haptic Feedback Helpers ---
+function triggerLightHaptic() {
+  if ('vibrate' in navigator) {
+    navigator.vibrate(15);
+  }
+}
+
+function triggerStrongHaptic() {
+  if ('vibrate' in navigator) {
+    navigator.vibrate([80, 50, 150]);
+  }
+}
+
 // --- Hold Handlers ---
 function onHoldStart(e) {
   e.preventDefault();
@@ -151,10 +164,12 @@ function onHoldStart(e) {
   clearError();
   holdStart = Date.now();
   holdButton.classList.add('holding');
+  triggerLightHaptic();
   animFrame = requestAnimationFrame(updateProgress);
 
   holdTimer = setTimeout(() => {
     // Hold completed
+    triggerStrongHaptic();
     submitRequest();
   }, HOLD_DURATION);
 }
