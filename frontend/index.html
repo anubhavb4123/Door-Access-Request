@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Door Access Request</title>
+  <meta name="description" content="Request door access by scanning the QR code. Send a notification to Anubhav when you're at the door." />
+  <meta name="theme-color" content="#0a0a1a" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <!-- Animated background particles -->
+  <div class="bg-particles" id="bgParticles" aria-hidden="true"></div>
+
+  <main class="container">
+    <!-- Request Form Card -->
+    <div class="card" id="requestCard">
+      <!-- Door Icon -->
+      <div class="door-icon" aria-hidden="true">
+        <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 21h18" />
+          <path d="M5 21V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2v16" />
+          <path d="M9 21v-4a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v4" />
+          <circle cx="15" cy="11" r="1" fill="currentColor" />
+        </svg>
+      </div>
+
+      <h1 class="title">Door Access Request</h1>
+
+      <p class="description">
+        I may be busy, studying, sleeping, coding, or wearing earbuds and might not hear your knock. Please send a request below.
+      </p>
+
+      <form id="accessForm" autocomplete="off">
+        <div class="form-group">
+          <label for="nameInput" class="form-label">Your Name <span class="optional">(optional)</span></label>
+          <input
+            type="text"
+            id="nameInput"
+            class="form-input"
+            placeholder="e.g. Rahul"
+            maxlength="50"
+          />
+        </div>
+
+        <div class="form-group">
+          <label for="reasonInput" class="form-label">Reason <span class="optional">(optional)</span></label>
+          <input
+            type="text"
+            id="reasonInput"
+            class="form-input"
+            placeholder="e.g. Need charger"
+            maxlength="100"
+          />
+        </div>
+
+        <!-- Hold Button -->
+        <div class="hold-button-wrapper">
+          <button type="button" id="holdButton" class="hold-button" aria-label="Hold for 2 seconds to request access">
+            <svg class="progress-ring" viewBox="0 0 120 120">
+              <circle class="progress-ring__bg" cx="60" cy="60" r="54" />
+              <circle class="progress-ring__fill" cx="60" cy="60" r="54" id="progressCircle" />
+            </svg>
+            <span class="hold-button__label" id="holdButtonLabel">
+              <svg class="hold-icon" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M12 22c5.523 0 10-4.477 10-10S17.523 2 12 2 2 6.477 2 12s4.477 10 10 10z"/>
+                <path d="M12 8v4l3 3"/>
+              </svg>
+              Hold to Request Access
+            </span>
+          </button>
+        </div>
+      </form>
+
+      <!-- Error Message -->
+      <div class="error-message" id="errorMessage" role="alert" aria-live="polite"></div>
+    </div>
+
+    <!-- Success Card (hidden by default) -->
+    <div class="card card--success hidden" id="successCard">
+      <div class="success-icon-wrapper">
+        <div class="success-icon">✅</div>
+      </div>
+      <h2 class="success-title">Request Sent</h2>
+      <p class="success-description">
+        Anubhav has been notified.<br />
+        Please wait near the door.
+      </p>
+      <div class="success-pulse" aria-hidden="true"></div>
+    </div>
+  </main>
+
+  <!-- Environment variables -->
+  <script src="env.js"></script>
+
+  <!-- Firebase SDK (compat for simplicity) -->
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-database-compat.js"></script>
+  <script src="app.js" type="module"></script>
+</body>
+</html>
