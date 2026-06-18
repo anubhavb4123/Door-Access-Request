@@ -1,0 +1,6 @@
+# Environment files (contain secrets)
+.env
+frontend/env.js
+
+# Dependencies
+node_modules/
