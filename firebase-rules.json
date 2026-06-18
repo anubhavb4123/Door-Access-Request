@@ -1,0 +1,18 @@
+{
+  "database": {
+    "rules": {
+      "doorRequests": {
+        ".read": true,
+        ".write": true,
+        ".indexOn": ["status"],
+        "$requestId": {
+          ".validate": "newData.hasChildren(['timestamp', 'status'])",
+          "name": { ".validate": "newData.isString() && newData.val().length <= 50" },
+          "reason": { ".validate": "newData.isString() && newData.val().length <= 100" },
+          "timestamp": { ".validate": "newData.isNumber()" },
+          "status": { ".validate": "newData.isString() && (newData.val() === 'pending' || newData.val() === 'processed' || newData.val() === 'failed')" }
+        }
+      }
+    }
+  }
+}
