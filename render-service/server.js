@@ -157,6 +157,22 @@ function startHealthServer() {
   });
 }
 
+// --- Self-Ping Keep-Alive (prevents Render free-tier spin-down) ---
+function startKeepAlive() {
+  const serviceUrl = process.env.RENDER_EXTERNAL_URL || `http://localhost:${PORT}`;
+
+  setInterval(async () => {
+    try {
+      await fetch(`${serviceUrl}/health`);
+      console.log('🔁 Self-ping OK');
+    } catch (e) {
+      console.log('❌ Self-ping failed:', e.message);
+    }
+  }, 5 * 60 * 1000); // every 5 minutes
+
+  console.log(`⏰ Keep-alive pinging ${serviceUrl}/health every 5 min`);
+}
+
 // --- Main ---
 function main() {
   console.log('🚀 Door Access Telegram Service starting...');
@@ -165,6 +181,7 @@ function main() {
   const db = initFirebase();
   watchRequests(db);
   startHealthServer();
+  startKeepAlive();
 }
 
 main();
